@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Shinko Chatbot</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<header class="aihead">
+    <h1>𝑺𝒉𝒊𝒏𝒌𝒐♡࿐</h1>
+    <a href="/wthr" class="linka">Weather App</a>
+</header>
+
+<body class="ai">
+    <form method="POST">
+        <input class="textbox" type="text" name="message" placeholder="Message" autocomplete="off">
+        <button class="btn" type="submit" name="action" value="send">✧Send</button>
+        <button class="erase-history" type="submit" name="action" value="erase" id="erase">
+            <span class="emoji">🧹</span>
+            <span class="label">Erase memory...</span>
+        </button>
+        <button class="erase-history" type="submit" name="action" value="history" id="history">
+            <span class="emoji">📜</span>
+            <span class="label">History</span>
+        </button>
+        <button class="speak" type="submit" name="action" value="speak">🔊</button>
+    </form>
+
+    {% if chat %}
+    <div class="temp">
+        {{ chat|safe }}
+    </div>
+    {% endif %}
+
+    {% if play_audio %}
+    <audio controls autoplay class="audio">
+        <source src="{{ url_for('static', filename='output.mp3') }}?v={{ random_id }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    {% endif %}
+
+    <div class="time" id="timeai">
+        {% if time %}
+        <p>
+            {{ time }}
+        </p>
+        {% endif %}
+    </div>
+
+    <div class="date" id="dateai">
+        {% if date %}
+        <p>
+            {{ date }}
+        </p>
+        {% endif %}
+    </div>
+
+</body>
+
+<script>
+    function updateDateTime() {
+        fetch('/datetime')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('time').innerText = data.time;
+                document.getElementById('date').innerText = data.date;
+            });
+    }
+    setInterval(updateDateTime, 5000);
+    updateDateTime();
+    window.onload = function () {
+        var tempDiv = document.getElementsByClassName("temp")[0];
+        if (tempDiv) {
+            tempDiv.scrollTop = tempDiv.scrollHeight;
+        }
+    };
+</script>
+
+</html>

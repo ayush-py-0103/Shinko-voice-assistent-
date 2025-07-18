@@ -1,0 +1,384 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ai {
+  background-image: url("bgai.jpg");
+  backdrop-filter: blur(5px);
+  height: 100svh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: 9vh;
+}
+
+.btn {
+  position: absolute;
+  height: 50px;
+  right: 2%;
+  width: 120px;
+  bottom: 50px;
+  border: none;
+  outline: none;
+  color: #0affef;
+  background: rgba(20, 20, 20, 0.6);
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 1em;
+  cursor: pointer;
+  z-index: 1;
+  overflow: hidden;
+  transition: 0.3s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 6px rgba(0, 255, 204, 0.2);
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, #0affef, transparent);
+  transition: 0.6s;
+  z-index: -1;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 12px #0affef;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.95);
+  background-color: #0affef;
+  color: #000;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.textbox {
+  position: absolute;
+  right: 160px;
+  bottom: 50px;
+  height: 50px;
+  width: 500px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(159, 157, 157, 0.429);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  outline: none;
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 5px rgba(0, 255, 204, 0.1);
+  transition: 0.3s ease;
+  font-size: 1em;
+}
+
+.textbox:focus {
+  border-color: #0affef;
+  box-shadow: 0 0 15px #0affef, inset 0 0 10px #0affef;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.textbox:hover {
+  box-shadow: 0 0 12px #0affef;
+}
+
+.temp {
+  position: absolute;
+  padding: 0px 5px 0px 5px;
+  top: 25vh;
+  left: 1vw;
+  font-size: 20px;
+  border: 2px solid rgba(159, 157, 157, 0.429);
+  background: rgba(255, 255, 255, 0.407);
+  outline: none;
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 5px rgba(0, 255, 204, 0.1);
+  border-radius: 12px;
+  max-height: 50%;
+  overflow-y: auto;
+  max-width: 90%;
+}
+
+#erase {
+  left: 1vw;
+}
+
+#history {
+  left: calc(1vh + 185px);
+}
+
+.erase-history {
+  position: absolute;
+  top: calc(25vh - 40px);
+  font-size: 16px;
+  padding: 6px 6px;
+  border: 2px solid rgba(159, 157, 157, 0.429);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 5px rgba(0, 255, 204, 0.1);
+  border-radius: 12px;
+  width: 45px;
+  color: black;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  transition: width 0.5s ease;
+}
+
+.erase-history.emoji {
+  flex-shrink: 0;
+  font-size: 20px;
+}
+
+.erase-history .label {
+  margin-left: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#erase:hover {
+  width: 170px;
+}
+
+#history:hover {
+  width: 105px;
+}
+
+.erase-history:hover .label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+a {
+  position: absolute;
+  top: 12%;
+  right: 2%;
+  font-size: 4vh;
+  text-decoration: none;
+  border: 2px solid transparent;
+  padding: 5px 11px;
+  border-radius: 25px;
+  overflow: hidden;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 6px rgba(0, 255, 100, 0.1);
+}
+
+.linka {
+  background-image: url("bgwthr2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #000000;
+  border: 3px solid #00ff887e
+}
+
+.linka::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, #00ff88, transparent);
+  transition: 0.6s ease;
+  z-index: -1;
+}
+
+.linka:hover::before {
+  left: 100%;
+}
+
+.linka:hover {
+  color: #00000000;
+  box-shadow: 0 0 14px #00ff88, 0 0 28px rgba(0, 255, 136, 0.4);
+  transform: scale(1.07);
+  border-color: #00ff88;
+  -webkit-text-stroke: 1px black;
+}
+
+.time {
+  position: absolute;
+  top: 13%;
+  right: 1%;
+  font-size: 9vh;
+}
+
+.date {
+  position: absolute;
+  top: 9%;
+  right: 1%;
+  font-size: 4vh;
+  text-decoration: underline;
+}
+
+.aihead {
+  background-image: url("bgai2.jpg");
+}
+
+header {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0px;
+  height: 9vh;
+  padding: 1%;
+  font-size: 0.8em;
+}
+
+.speak {
+  position: absolute;
+  top: 25%;
+  right: 3%;
+  height: 50px;
+  width: 50px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(6px);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.speak:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #0affef;
+  box-shadow: 0 0 12px #0affef;
+  transform: scale(1.1);
+}
+
+.speak:active {
+  transform: scale(0.9);
+  box-shadow: inset 0 0 8px rgba(0, 255, 204, 0.4);
+}
+
+.audio {
+  position: absolute;
+  bottom: 130px;  
+  right: 2vw;
+  width: 300px;
+  height: 40px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 255, 204, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(0, 255, 204, 0.5),
+              0 0 20px rgba(0, 255, 204, 0.3);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.audio:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0affef, 0 0 40px rgba(0, 255, 204, 0.4);
+}
+
+.audio::before {
+  content: "🔊 AI Voice";
+  position: absolute;
+  top: -25px;
+  left: 0;
+  color: #0affef;
+  font-size: 14px;
+  font-family: monospace;
+}
+
+@media screen and (max-width: 770px) {
+  .speak {
+    top: 18%;
+    right: 5%;
+    width: 10vw;
+    height: 10vw;
+    font-size: 5vw;
+  }
+
+  .textbox {
+    width: 74%;
+    right: 24%;
+    height: 6%;
+    bottom: 3%;
+  }
+
+  .btn {
+    right: 2%;
+    height: 6%;
+    width: 20%;
+    bottom: 3%;
+    padding: 0;
+  }
+
+  .date {
+    font-size: 3vh;
+    top: 7%;
+  }
+
+  .time {
+    font-size: 6vh;
+    top: 10%;
+  }
+
+  .erase-history {
+    top: calc(19vh - 40px);
+    font-size: 12px;
+  }
+
+  .audio{
+    bottom: 10vh;
+    left: 1vh;
+    width: 250px;
+  }
+
+  #erase {
+    width: 125px;
+  }
+
+  #history {
+    left: 1vw;
+    top: calc(19vh - 80px);
+    width: 80px;
+  }
+
+  .erase-history .label {
+    opacity: 1;
+    transform: translateX(0);
+    margin-left: 5px;
+  }
+
+  .temp {
+    top: 19vh;
+    max-height: 60vh;
+    max-width: 80%;
+  }
+
+  header {
+    height: 5vh;
+  }
+
+  .ai {
+    background-position-y: 5vh;
+  }
+
+  a {
+    font-size: 2vh;
+  }
+}
