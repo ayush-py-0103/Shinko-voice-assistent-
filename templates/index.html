@@ -77,4 +77,147 @@
     };
 </script>
 
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shinko ✦ Your AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="blur-overlay"></div>
+        <div class="animated-grid">
+            <div class="grid-line"></div>
+            <div class="grid-line"></div>
+            <div class="grid-line"></div>
+            <div class="grid-line"></div>
+        </div>
+        <div class="floating-elements">
+            <div class="floating-circle"></div>
+            <div class="floating-circle"></div>
+            <div class="floating-circle"></div>
+            <div class="floating-dots"></div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Top Bar with Options -->
+        <div class="top-bar glass-effect slide-down">
+            <div class="datetime">
+                <span id="time" class="glow-text"><i class="far fa-clock"></i> {{ time }}</span>
+                <span id="date" class="glow-text"><i class="far fa-calendar"></i> {{ date }}</span>
+            </div>
+            <div class="options">
+                <form method="POST" id="chatForm" style="display: inline;">
+                    <input type="hidden" name="action" value="chat">
+                    <button type="submit" class="option-btn active pulse" id="chatBtn">
+                        <i class="fas fa-comment-dots"></i>
+                        <span>Chat</span>
+                    </button>
+                </form>
+                <form method="POST" id="historyForm" style="display: inline;">
+                    <input type="hidden" name="action" value="history">
+                    <button type="submit" class="option-btn" id="historyBtn">
+                        <i class="fas fa-clock-rotate-left"></i>
+                        <span>History</span>
+                    </button>
+                </form>
+                <form method="POST" id="eraseForm" style="display: inline;">
+                    <input type="hidden" name="action" value="erase">
+                    <button type="submit" class="option-btn" id="eraseBtn">
+                        <i class="fas fa-trash-can"></i>
+                        <span>Erase</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Chat Display Area (Top Left) -->
+        <div class="chat-display glass-effect slide-right" id="chatDisplay">
+            {% if chat %}
+                <div class="chat-messages">
+                    {{ chat|safe }}
+                </div>
+            {% else %}
+                <div class="welcome-message fade-in">
+                    <div class="avatar-container">
+                        <div class="avatar-glow"></div>
+                        <div class="avatar">✨</div>
+                    </div>
+                    <h2 class="gradient-text">Namaste! Main Shinko hoon</h2>
+                    <p class="typing-animation">Aap kaise hain? Main aapki kya madad kar sakti hoon?</p>
+                    <div class="welcome-suggestions">
+                        <span class="suggestion-chip">💭 Kya haal hai?</span>
+                        <span class="suggestion-chip">🎵 Gana sunao</span>
+                        <span class="suggestion-chip">📝 Kuch likho</span>
+                        <span class="suggestion-chip">🤔 Sawaal poocho</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Typing Bar (Bottom Right) -->
+        <div class="typing-bar glass-effect slide-up">
+            <form method="POST" action="/" id="messageForm" class="message-form">
+                <input type="hidden" name="action" value="send">
+                <div class="input-wrapper">
+                    <input type="text" 
+                           name="message" 
+                           id="messageInput"
+                           placeholder="Type your message here..." 
+                           autocomplete="off"
+                           required>
+                    <div class="input-glow"></div>
+                </div>
+                <button type="submit" id="sendBtn" class="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send</span>
+                </button>
+            </form>
+            <form method="POST" action="/" id="speakForm">
+                <input type="hidden" name="action" value="speak">
+                <button type="submit" id="speakBtn" class="speak-btn" title="Hear Shinko's last response">
+                    <i class="fas fa-volume-high"></i>
+                    <span class="btn-tooltip">Listen</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Audio Player (Hidden) -->
+    {% if play_audio %}
+    <audio id="audioPlayer" autoplay>
+        <source src="{{ url_for('static', filename='output.mp3') }}?v={{ random_id }}" type="audio/mpeg">
+    </audio>
+    {% endif %}
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Message sent!</span>
+    </div>
+
+    <!-- Shutdown alert -->
+    <div id="shutdownModal" class="modal glass-effect" style="display:none;">
+        <div class="modal-content">
+            <h3>Are you sure you want to shutdown?</h3>
+            <div class="modal-buttons">
+                <button onclick="sendShutdown('yes')" class="option-btn" style="background: #ff4444;">
+                    <i class="fas fa-check"></i> Yes
+                </button>
+                <button onclick="sendShutdown('no')" class="option-btn" style="background: #666;">
+                    <i class="fas fa-times"></i> No
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
 </html>
